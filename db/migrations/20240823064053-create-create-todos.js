@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('create-todos', {
+    await queryInterface.createTable('todos', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,22 +10,24 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       text: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
-      isChecked: {
+      is_checked: {
+        defaultValue: false,
         type: Sequelize.BOOLEAN,
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
     });
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('create-todos');
+  async down(queryInterface) {
+    await queryInterface.dropTable('todos');
   },
 };

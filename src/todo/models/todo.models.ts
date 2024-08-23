@@ -14,5 +14,5 @@ export class Todo extends Model {
   @Column({
     defaultValue: false,
   })
-  ischecked: boolean;
+  isChecked: boolean;
 }
