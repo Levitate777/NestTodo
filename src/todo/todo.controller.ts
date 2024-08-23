@@ -40,6 +40,11 @@ export class TodoController {
     return this.todoService.uptadeTodo(id, updateTodo);
   }
 
+  @Delete('delete-all-checked')
+  deleteAllCheckedTodo(): Promise<string> {
+    return this.todoService.deleteAllCheckedTodo();
+  }
+
   @Delete(':id')
   deleteTodo(@Param('id') id: number): Promise<string> {
     return this.todoService.deleteTodo(id);

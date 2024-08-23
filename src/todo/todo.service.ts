@@ -60,4 +60,9 @@ export class TodoService {
     await this.todoModel.destroy({ where: { id } });
     return 'delete one todo';
   }
+
+  async deleteAllCheckedTodo(): Promise<string> {
+    await this.todoModel.destroy({ where: { isChecked: true } });
+    return 'delete all checked todo';
+  }
 }
