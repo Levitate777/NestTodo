@@ -57,12 +57,22 @@ export class TodoService {
   }
 
   async deleteTodo(id: number): Promise<string> {
-    await this.todoModel.destroy({ where: { id } });
+    const coutdelete = await this.todoModel.destroy({ where: { id } });
+    if (!coutdelete) {
+      throw new InternalServerErrorException('Failed to delete todo.');
+    }
     return 'delete one todo';
   }
 
   async deleteAllCheckedTodo(): Promise<string> {
-    await this.todoModel.destroy({ where: { isChecked: true } });
+    const coutdelete = await this.todoModel.destroy({
+      where: { isChecked: true },
+    });
+    if (!coutdelete) {
+      throw new InternalServerErrorException(
+        'Failed to delete all checked todo.',
+      );
+    }
     return 'delete all checked todo';
   }
 }
