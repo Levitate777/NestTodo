@@ -32,7 +32,27 @@ export class TodoService {
     if (!editTodo) {
       throw new InternalServerErrorException('Failed to update todo.');
     }
-    await this.todoModel.update(uptadeTodo, { where: { id } });
+    await editTodo.update(uptadeTodo, { where: { id } });
+    console.log('update', editTodo);
     return editTodo;
+  }
+
+  async checkAllTodo(updateTodo: Pick<Todo, 'isChecked'>): Promise<string> {
+    console.log('service', updateTodo);
+    const checkAll = await this.todoModel.update(
+      {
+        isChecked: updateTodo.isChecked,
+      },
+      {
+        where: { isChecked: !updateTodo.isChecked },
+      },
+    );
+    console.log(checkAll);
+    if (checkAll[0] === 0) {
+      throw new InternalServerErrorException(
+        'Failed to update check all todo.',
+      );
+    }
+    return 'update check all completed';
   }
 }

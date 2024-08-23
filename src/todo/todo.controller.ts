@@ -18,6 +18,12 @@ export class TodoController {
     return this.todoService.createTodo(text);
   }
 
+  @Patch('check-all')
+  checkAllTodo(@Body() isChecked: Pick<Todo, 'isChecked'>): Promise<string> {
+    console.log('controller', isChecked);
+    return this.todoService.checkAllTodo(isChecked);
+  }
+
   @Patch(':id')
   updateTodo(
     @Param('id') id: number,
