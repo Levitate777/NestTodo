@@ -55,4 +55,9 @@ export class TodoService {
     }
     return 'update check all completed';
   }
+
+  async deleteTodo(id: number): Promise<string> {
+    await this.todoModel.destroy({ where: { id } });
+    return 'delete one todo';
+  }
 }
