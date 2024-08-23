@@ -1,6 +1,6 @@
 import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 
-export class CreateTodoDto {
+export class UpdateTodoDto {
   @IsNotEmpty()
   @IsString()
   text: string;
