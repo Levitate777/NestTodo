@@ -15,7 +15,8 @@ export class UpdateTodoDto {
       .trim()
       .replace(/ {2,}/g, ' ')
       .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;'),
+      .replace(/>/g, '&gt;')
+      .replace(/"|'/g, "'"),
   )
   @Length(1, 255)
   @IsOptional()

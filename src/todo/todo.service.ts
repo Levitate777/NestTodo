@@ -12,7 +12,9 @@ export class TodoService {
   ) {}
 
   getAllTodos(): Promise<Todo[]> {
-    const todos = this.todoModel.findAll();
+    const todos = this.todoModel.findAll({
+      order: [['id', 'ASC']],
+    });
     if (!todos) {
       throw new InternalServerErrorException('Failed to retrieve todos.');
     }
@@ -27,18 +29,16 @@ export class TodoService {
     return newTodo;
   }
 
-  async uptadeTodo(id: number, uptadeTodo: UpdateTodoDto): Promise<Todo> {
+  async uptadeTodo(id: number, updateTodo: UpdateTodoDto): Promise<Todo> {
     const editTodo = await this.todoModel.findByPk(id);
     if (!editTodo) {
       throw new InternalServerErrorException('Failed to update todo.');
     }
-    await editTodo.update(uptadeTodo, { where: { id } });
-    console.log('update', editTodo);
+    await editTodo.update(updateTodo, { where: { id } });
     return editTodo;
   }
 
   async checkAllTodo(updateTodo: Pick<Todo, 'isChecked'>): Promise<string> {
-    console.log('service', updateTodo);
     const checkAll = await this.todoModel.update(
       {
         isChecked: updateTodo.isChecked,
@@ -47,7 +47,6 @@ export class TodoService {
         where: { isChecked: !updateTodo.isChecked },
       },
     );
-    console.log(checkAll);
     if (checkAll[0] === 0) {
       throw new InternalServerErrorException(
         'Failed to update check all todo.',

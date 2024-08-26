@@ -32,7 +32,7 @@ export class TodoController {
     return this.todoService.checkAllTodo(isChecked);
   }
 
-  @Patch(':id')
+  @Patch('update/:id')
   updateTodo(
     @Param('id') id: number,
     @Body() updateTodo: UpdateTodoDto,
@@ -45,7 +45,7 @@ export class TodoController {
     return this.todoService.deleteAllCheckedTodo();
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   deleteTodo(@Param('id') id: number): Promise<string> {
     return this.todoService.deleteTodo(id);
   }
