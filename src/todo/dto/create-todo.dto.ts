@@ -4,13 +4,7 @@ import { IsNotEmpty, IsString, Length } from 'class-validator';
 export class CreateTodoDto {
   @IsNotEmpty()
   @IsString()
-  @Transform(({ value }) =>
-    value
-      .trim()
-      .replace(/ {2,}/g, ' ')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;'),
-  )
-  @Length(1, 255)
+  @Transform(({ value }) => value.trim().replace(/s+/g, ' '))
+  @Length(1, 256)
   text: string;
 }
