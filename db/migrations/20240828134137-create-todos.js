@@ -11,10 +11,15 @@ module.exports = {
       },
       text: {
         allowNull: false,
+        validate: {
+          notEmpty: true,
+          len: [1, 255],
+        },
         type: Sequelize.STRING,
       },
       is_checked: {
         defaultValue: false,
+        allowNull: false,
         type: Sequelize.BOOLEAN,
       },
       created_at: {

@@ -33,7 +33,7 @@ export class TodoService {
   }
 
   async checkAllTodo(updateTodo: CheckAllTodoDto): Promise<string> {
-    const checkAll = await this.todoModel.update(
+    await this.todoModel.update(
       {
         isChecked: updateTodo.isChecked,
       },
@@ -41,9 +41,6 @@ export class TodoService {
         where: { isChecked: !updateTodo.isChecked },
       },
     );
-    if (checkAll[0] === 0) {
-      throw new NotFoundException('Failed to update check all todo.');
-    }
     return 'OK';
   }
 

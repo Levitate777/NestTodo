@@ -29,7 +29,7 @@ export class TodoController {
     return this.todoService.createTodo(text);
   }
 
-  @Patch()
+  @Patch('check-all')
   checkAllTodo(@Body() isChecked: CheckAllTodoDto): Promise<string> {
     return this.todoService.checkAllTodo(isChecked);
   }
