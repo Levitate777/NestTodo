@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Todo } from './models/todo.models';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
+import { CheckAllTodoDto } from './dto/check-all-todo.dto';
 
 @Injectable()
 export class TodoService {
@@ -12,21 +13,13 @@ export class TodoService {
   ) {}
 
   getAllTodos(): Promise<Todo[]> {
-    const todos = this.todoModel.findAll({
+    return this.todoModel.findAll({
       order: [['id', 'ASC']],
     });
-    if (!todos) {
-      throw new InternalServerErrorException('Failed to retrieve todos.');
-    }
-    return todos;
   }
 
   createTodo(text: CreateTodoDto): Promise<Todo> {
-    const newTodo = this.todoModel.create({ ...text });
-    if (!newTodo) {
-      throw new InternalServerErrorException('Failed to create todo.');
-    }
-    return newTodo;
+    return this.todoModel.create({ ...text });
   }
 
   async uptadeTodo(id: number, updateTodo: UpdateTodoDto): Promise<Todo> {
@@ -38,7 +31,7 @@ export class TodoService {
     return editTodo;
   }
 
-  async checkAllTodo(updateTodo: Pick<Todo, 'isChecked'>): Promise<string> {
+  async checkAllTodo(updateTodo: CheckAllTodoDto): Promise<string> {
     const checkAll = await this.todoModel.update(
       {
         isChecked: updateTodo.isChecked,
@@ -52,7 +45,7 @@ export class TodoService {
         'Failed to update check all todo.',
       );
     }
-    return 'update check all completed';
+    return 'OK';
   }
 
   async deleteTodo(id: number): Promise<string> {
@@ -60,18 +53,18 @@ export class TodoService {
     if (!coutdelete) {
       throw new InternalServerErrorException('Failed to delete todo.');
     }
-    return 'delete one todo';
+    return 'OK';
   }
 
   async deleteAllCheckedTodo(): Promise<string> {
-    const coutdelete = await this.todoModel.destroy({
+    const countDelete = await this.todoModel.destroy({
       where: { isChecked: true },
     });
-    if (!coutdelete) {
+    if (!countDelete) {
       throw new InternalServerErrorException(
         'Failed to delete all checked todo.',
       );
     }
-    return 'delete all checked todo';
+    return 'OK';
   }
 }

@@ -6,11 +6,13 @@ import {
   Post,
   Patch,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { Todo } from './models/todo.models';
 import { UpdateTodoDto } from './dto/update-todo.dto';
+import { CheckAllTodoDto } from './dto/check-all-todo.dto';
 
 @Controller('todos')
 export class TodoController {
@@ -27,14 +29,13 @@ export class TodoController {
   }
 
   @Patch('check-all')
-  checkAllTodo(@Body() isChecked: Pick<Todo, 'isChecked'>): Promise<string> {
-    console.log('controller', isChecked);
+  checkAllTodo(@Body() isChecked: CheckAllTodoDto): Promise<string> {
     return this.todoService.checkAllTodo(isChecked);
   }
 
   @Patch('update/:id')
   updateTodo(
-    @Param('id') id: number,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateTodo: UpdateTodoDto,
   ): Promise<Todo> {
     return this.todoService.uptadeTodo(id, updateTodo);
@@ -46,7 +47,7 @@ export class TodoController {
   }
 
   @Delete('delete/:id')
-  deleteTodo(@Param('id') id: number): Promise<string> {
+  deleteTodo(@Param('id', ParseIntPipe) id: number): Promise<string> {
     return this.todoService.deleteTodo(id);
   }
 }
