@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
+
 import { Todo } from './todo/models/todo.models';
 import { TodoModule } from './todo/todo.module';
 

@@ -1,5 +1,6 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+
 import { Todo } from './models/todo.models';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
@@ -25,7 +26,7 @@ export class TodoService {
   async uptadeTodo(id: number, updateTodo: UpdateTodoDto): Promise<Todo> {
     const editTodo = await this.todoModel.findByPk(id);
     if (!editTodo) {
-      throw new InternalServerErrorException('Failed to update todo.');
+      throw new NotFoundException('Failed to update todo.');
     }
     await editTodo.update(updateTodo, { where: { id } });
     return editTodo;
@@ -41,9 +42,7 @@ export class TodoService {
       },
     );
     if (checkAll[0] === 0) {
-      throw new InternalServerErrorException(
-        'Failed to update check all todo.',
-      );
+      throw new NotFoundException('Failed to update check all todo.');
     }
     return 'OK';
   }
@@ -51,7 +50,7 @@ export class TodoService {
   async deleteTodo(id: number): Promise<string> {
     const coutdelete = await this.todoModel.destroy({ where: { id } });
     if (!coutdelete) {
-      throw new InternalServerErrorException('Failed to delete todo.');
+      throw new NotFoundException('Failed to delete todo.');
     }
     return 'OK';
   }
@@ -61,9 +60,7 @@ export class TodoService {
       where: { isChecked: true },
     });
     if (!countDelete) {
-      throw new InternalServerErrorException(
-        'Failed to delete all checked todo.',
-      );
+      throw new NotFoundException('Failed to delete all checked todo.');
     }
     return 'OK';
   }

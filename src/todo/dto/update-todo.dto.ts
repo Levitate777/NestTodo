@@ -11,7 +11,7 @@ export class UpdateTodoDto {
   @IsNotEmpty()
   @IsString()
   @Transform(({ value }) => value.trim().replace(/s+/g, ' '))
-  @Length(1, 256)
+  @Length(1, 255)
   @IsOptional()
   text: string;
 
