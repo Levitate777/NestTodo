@@ -19,8 +19,8 @@ export class TodoService {
     });
   }
 
-  createTodo(text: CreateTodoDto): Promise<Todo> {
-    return this.todoModel.create({ ...text });
+  createTodo(todoReq: CreateTodoDto): Promise<Todo> {
+    return this.todoModel.create({ ...todoReq });
   }
 
   async uptadeTodo(id: number, updateTodo: UpdateTodoDto): Promise<Todo> {
@@ -45,8 +45,8 @@ export class TodoService {
   }
 
   async deleteTodo(id: number): Promise<string> {
-    const coutdelete = await this.todoModel.destroy({ where: { id } });
-    if (!coutdelete) {
+    const countdelete = await this.todoModel.destroy({ where: { id } });
+    if (!countdelete) {
       throw new NotFoundException('Failed to delete todo.');
     }
     return 'OK';

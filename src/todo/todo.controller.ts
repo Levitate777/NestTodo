@@ -25,8 +25,8 @@ export class TodoController {
   }
 
   @Post()
-  createTodo(@Body() text: CreateTodoDto): Promise<Todo> {
-    return this.todoService.createTodo(text);
+  createTodo(@Body() todoReq: CreateTodoDto): Promise<Todo> {
+    return this.todoService.createTodo(todoReq);
   }
 
   @Patch('check-all')
