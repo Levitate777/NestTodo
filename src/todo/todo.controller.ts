@@ -10,8 +10,8 @@ import {
 } from '@nestjs/common';
 
 import { TodoService } from './todo.service';
-import { CreateTodoDto } from './dto/create-todo.dto';
 import { Todo } from './models/todo.models';
+import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
 import { CheckAllTodoDto } from './dto/check-all-todo.dto';
 
