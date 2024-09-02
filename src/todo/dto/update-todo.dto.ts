@@ -1,9 +1,6 @@
 import { IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Transform } from 'class-transformer';
-
-function validateText(text) {
-  return text.trim().replace(/s+/g, ' ');
-}
+import { validateText } from '../helpers/validateText';
 
 export class UpdateTodoDto {
   @IsNotEmpty()

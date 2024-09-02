@@ -45,8 +45,8 @@ export class TodoService {
   }
 
   async deleteTodo(id: number): Promise<string> {
-    const countdelete = await this.todoModel.destroy({ where: { id } });
-    if (!countdelete) {
+    const countDelete = await this.todoModel.destroy({ where: { id } });
+    if (!countDelete) {
       throw new NotFoundException('Failed to delete todo.');
     }
     return 'OK';
